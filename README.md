@@ -22,6 +22,8 @@ Requests (Python module)
 
 Tweepy (Python module)
 
+Pillow (Python module)
+
 ## Getting Started
 To Start off with you must download and extract the Bot.
 Then you need to open the config.py file and fill in everything required as well as having further instructions in the file. 
