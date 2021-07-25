@@ -273,7 +273,7 @@ def main():
 
                     backgrounds.save('sections.jpg')
                     pic='sections.jpg'
-                    api.update_with_media(pic, f'Testing\n{file_contents}')  
+                    api.update_with_media(pic, f'{file_contents}')  
                 else:
                     api.update_status(f"{file_contents}")
                 print("Posted!")
