@@ -4,12 +4,12 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 [Download Bot](https://github.com/swiftnite/Shop-Section-Bot/archive/refs/heads/main.zip)
 
 ## Example
-<p align="center">
 Image Disabled
+<p align="center">
     <img src="https://i.imgur.com/s2RBavZ.jpg">
 </p>
-<p align="center">
 Image Enabled
+<p align="center">
     <img src="https://i.imgur.com/7T8HYL9.png">
 </p>
 
@@ -44,6 +44,6 @@ Open command prompt and enter each line!
 Then you can run main.py!!
 
 ## Project Credits
-Bot Powered by [FN-Api](https://fn-api.com/) 
+Sections provided by [Nite Stats](https://nitestats.com/)
 
 Bot Created by [Swift-Nite](https://twitter.com/SwiftNite)
