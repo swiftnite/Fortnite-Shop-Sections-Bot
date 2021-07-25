@@ -4,12 +4,12 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 [Download Bot](https://github.com/swiftnite/Shop-Section-Bot/archive/refs/heads/main.zip)
 
 ## Example
-Image Disabled
 <p align="center">
+    Image Disabled<br>
     <img src="https://i.imgur.com/s2RBavZ.jpg">
 </p>
-Image Enabled
 <p align="center">
+    Image Enabled<br>
     <img src="https://i.imgur.com/7T8HYL9.png">
 </p>
 
