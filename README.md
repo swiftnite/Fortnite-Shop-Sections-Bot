@@ -1,8 +1,6 @@
 ## Fortnite Shop Section Bot
 A Fortnite shop section bot that posts to twitter as soon as they update! With several customisable options!
 
-[Download Bot](https://github.com/swiftnite/Shop-Section-Bot/archive/refs/heads/main.zip)
-
 ## Example
 <p align="center">
     <img src="https://i.imgur.com/s2RBavZ.jpg">
