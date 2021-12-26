@@ -13,9 +13,7 @@ Twitter Developer Account
 
 Requests (Python module)
 
-Tweepy (Python module)
-
-Pillow (Python module)
+Tweepy 3.9.0 (Python module)
 
 ## Getting Started
 To Start off with you must download and extract the Bot.
@@ -27,9 +25,7 @@ Open command prompt and enter each line!
 
 `pip install requests`
 
-`pip install tweepy`
-
-`pip install pillow`
+`pip install tweepy==3.9.0 `
 
 Then you can run run.bat!!
 
