@@ -5,12 +5,7 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 
 ## Example
 <p align="center">
-    Image Disabled<br>
     <img src="https://i.imgur.com/s2RBavZ.jpg">
-</p>
-<p align="center">
-    Image Enabled<br>
-    <img src="https://i.imgur.com/7T8HYL9.png">
 </p>
 
 ## Requirments
@@ -30,20 +25,15 @@ Then you need to open the config.py file and fill in everything required as well
 You must install python if you haven't already
 You then must do:
 
-**Windows:**
 Open command prompt and enter each line!
 
 `pip install requests`
 
-`pip install tweepy` 
+`pip install tweepy`
 
-**Linux or Ubuntu:**
+`pip install pillow`
 
-`pip3 install requests`
-
-`pip3 install tweepy` 
-
-Then you can run main.py!!
+Then you can run run.bat!!
 
 ## Project Credits
 Sections provided by [Nite Stats](https://nitestats.com/)
