@@ -4,7 +4,6 @@ import json
 from time import sleep
 import tweepy
 import os, random
-from PIL import Image, ImageDraw, ImageFont
 from config import keys, customisation
 consumer_key = keys.consumer_key
 image='False'
@@ -231,51 +230,14 @@ def main():
                             quantity=f" (X{quantity})"
                         txt.write(f"\n{point}{name}{quantity}")
                         txti.write(f"{point}{name}{quantity}\n")
-                        quant=quant+60
                     else:
                         txt.write(f"\n{point}{name}")
                         txti.write(f"{point}{name}\n")
-                        quant=quant+60
                 
                 txt = open(f"sections.txt","r")
                 file_contents = txt.read()
                 print (file_contents)
-                
-                if image=='True':
-                    quant=quant+100
-                    background=random.choice(os.listdir("Backgrounds/")) 
-                    backgrounds=Image.open(f'Backgrounds/{background}')
-                    backgrounds=backgrounds.resize((500,quant))
-                    FontSize = 80
-                    while ImageFont.truetype(f"BurbankSmall-Black.otf", FontSize).getsize(f"Shop Sections!")[0] > 460:
-                        FontSize -= 1
-                    BurbankBigCondensed = ImageFont.truetype(f"BurbankSmall-Black.otf", FontSize)
-                    textWidth = BurbankBigCondensed.getsize(f"Shop Sections!")[0]
-                    Middle = int((500 - textWidth) / 2)
-                    Draw = ImageDraw.Draw(backgrounds)
-                    Draw.text((Middle, 20), (f"Shop Sections!"), (255, 255, 255), font=BurbankBigCondensed)
-                    
-                    txti = open(f"sectionsi.txt","r")
-                    file = txti.readlines()
-                    area=40
-                    for i in file:
-                        area+=60
-                        i=i.rstrip()
-                        FontSize = 40
-                        while ImageFont.truetype(f"BurbankSmall-Black.otf", FontSize).getsize(f"{i}")[0] > 460:
-                            FontSize -= 1
-                        BurbankBigCondensed = ImageFont.truetype(f"BurbankSmall-Black.otf", FontSize)
-                        textWidth = BurbankBigCondensed.getsize(f"{i}")[0]
-                        Middle = int((500 - textWidth) / 2)
-                        Draw = ImageDraw.Draw(backgrounds)
-                        Draw.text((Middle, area), (f"{i}"), (255, 255, 255), font=BurbankBigCondensed)
-
-
-                    backgrounds.save('sections.jpg')
-                    pic='sections.jpg'
-                    api.update_with_media(pic, f'{file_contents}')  
-                else:
-                    api.update_status(f"{file_contents}")
+                api.update_status(f"{file_contents}")
                 print("Posted!")
                 txt.close()
                 txti.close()
