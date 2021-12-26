@@ -7,13 +7,13 @@ import os, random
 from PIL import Image, ImageDraw, ImageFont
 from config import keys, customisation
 consumer_key = keys.consumer_key
+image='False'
 consumer_secret_key = keys.consumer_secret_key
 access_token = keys.access_token
 access_token_secret = keys.access_token_secret
 Heading = customisation.Heading
 Brackets = customisation.Brackets
 point = customisation.point
-image = customisation.image
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
