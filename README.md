@@ -28,7 +28,8 @@ Open command prompt and enter each line!
 `pip install tweepy `
 
 **OR**
-Run install.bat!
+
+Run **install.bat**!
 
 Then you can run run.bat!!
 
