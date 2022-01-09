@@ -25,7 +25,10 @@ Open command prompt and enter each line!
 
 `pip install requests`
 
-`pip install tweepy==3.9.0 `
+`pip install tweepy `
+
+**OR**
+Run install.bat!
 
 Then you can run run.bat!!
 
