@@ -27,9 +27,11 @@ If that does not work then:
 Open command prompt and enter each line!
 
 `pip install requests` 
+
 Alternatively: `pip3 install requests`
 
 `pip install tweepy`
+
 Alternatively: `pip3 install tweepy`
 
 **Then you can run run.bat!!**
