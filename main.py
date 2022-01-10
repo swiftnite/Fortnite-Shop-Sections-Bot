@@ -216,7 +216,6 @@ def main():
                 x=sorted(x)
                 count=Counter(x)
                 txt = open(f"sections.txt","w+")
-                txti = open(f"sectionsi.txt","w+")
                 txt.write(f"{Heading}\n")
                 quant=0
                 for i in count:
@@ -230,10 +229,8 @@ def main():
                         else:
                             quantity=f" (X{quantity})"
                         txt.write(f"\n{point}{name}{quantity}")
-                        txti.write(f"{point}{name}{quantity}\n")
                     else:
                         txt.write(f"\n{point}{name}")
-                        txti.write(f"{point}{name}\n")
                 
                 txt = open(f"sections.txt","r")
                 file_contents = txt.read()
@@ -241,7 +238,6 @@ def main():
                 api.update_status(f"{file_contents}")
                 print("Posted!")
                 txt.close()
-                txti.close()
                 with open('Cache/cache1.json', 'w') as file:
                     json.dump(sections1, file, indent=3)
         except:
