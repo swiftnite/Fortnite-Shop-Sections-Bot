@@ -38,3 +38,5 @@ Alternatively: `pip3 install tweepy`
 Sections provided by [Nite Stats](https://nitestats.com/)
 
 Bot Created by [Swift-Nite](https://twitter.com/SwiftNite)
+
+Assisted by [xdFNLeaks](https://twitter.com/xdFNLeaks)
