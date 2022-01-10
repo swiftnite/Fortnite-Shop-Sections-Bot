@@ -13,7 +13,7 @@ Twitter Developer Account
 
 Requests (Python module)
 
-Tweepy 3.9.0 (Python module)
+Tweepy (Python module)
 
 ## Getting Started
 To Start off with you must download and extract the Bot.
