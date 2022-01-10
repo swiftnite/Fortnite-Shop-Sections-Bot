@@ -27,7 +27,18 @@ Open command prompt and enter each line!
 
 `pip install tweepy `
 
-**OR**
+Alternative install Option Number 1:
+
+```
+pip3 install -r requirements.txt
+```
+If The Option Above does not work try:
+
+```
+pip install -r requirements.txt
+```
+
+**Alternative install Option Number 1**
 
 Run **install.bat**!
 
