@@ -18,31 +18,21 @@ Tweepy 3.9.0 (Python module)
 ## Getting Started
 To Start off with you must download and extract the Bot.
 Then you need to open the config.py file and fill in everything required as well as having further instructions in the file. 
-You must install python if you haven't already
+You must install python if you haven't already be sure python is added to python when you select installation options!
 You then must do:
-
-Open command prompt and enter each line!
-
-`pip install requests`
-
-`pip install tweepy `
-
-Alternative install Option Number 1:
-
-```
-pip3 install -r requirements.txt
-```
-If The Option Above does not work try:
-
-```
-pip install -r requirements.txt
-```
-
-**Alternative install Option Number 1**
 
 Run **install.bat**!
 
-Then you can run run.bat!!
+If that does not work then:
+Open command prompt and enter each line!
+
+`pip install requests` 
+Alternatively: `pip3 install requests`
+
+`pip install tweepy`
+Alternatively: `pip3 install tweepy`
+
+**Then you can run run.bat!!**
 
 ## Project Credits
 Sections provided by [Nite Stats](https://nitestats.com/)
