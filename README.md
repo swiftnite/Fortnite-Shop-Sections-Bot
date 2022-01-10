@@ -19,7 +19,7 @@ Tweepy (Python module)
 To Start off with you must download and extract the Bot.
 Then you need to open the config.py file and fill in everything required as well as having further instructions in the file. 
 You must install python if you haven't already be sure python is added to python when you select installation options!
-You then must do:
+You must then:
 
 Run **install.bat**!
 
