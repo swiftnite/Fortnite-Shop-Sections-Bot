@@ -23,5 +23,5 @@ class customisation:
 '''
 If you have any issues please message me on discord or twitter and I will respond as quick as possible!!
 Twitter: @SwiftNite
-Discord: Swift-nite#1313
+Discord: Swift-nite#9078
 '''
