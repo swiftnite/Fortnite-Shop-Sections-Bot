@@ -21,7 +21,7 @@ api = tweepy.API(auth)
 def main():
     try:
         url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game?lang={Language}').json()['shopSections']['sectionList']['sections']
+        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
 
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
