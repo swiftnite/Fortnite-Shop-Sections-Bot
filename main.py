@@ -21,7 +21,7 @@ api = tweepy.API(auth)
 def main():
     try:
         url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game?lang={Language}').json()['shopSections']['sectionList']['sections']
+        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
 
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
@@ -41,177 +41,29 @@ def main():
                     for b in url2:
                         name=a
                         sectionId=b['sectionId']
+                        sFix1=["20", "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "9B", "8B", "7B", "6B", "5B", "4B", "3B", "2B", "1B", "9C", "8C", "7C", "6C", "5C", "4C", "3C", "2C", "1C"]
+                        sFix2=["9", "8", "7", "6", "5", "4", "3", "2", "1", "B", "C"]
                         if name==sectionId:
                             goatt+=1
                             try:
                                 name=b['sectionDisplayName']
                             except:
                                 name=a
-                                if name.endswith('20'):
+                                if name.endswith(tuple(sFix1)):
                                     name=name[:-2]
-                                elif name.endswith('19'):
-                                    name=name[:-2]
-                                elif name.endswith('18'):
-                                    name=name[:-2]
-                                elif name.endswith('17'):
-                                    name=name[:-2]
-                                elif name.endswith('16'):
-                                    name=name[:-2]
-                                elif name.endswith('15'):
-                                    name=name[:-2]
-                                elif name.endswith('14'):
-                                    name=name[:-2]
-                                elif name.endswith('13'):
-                                    name=name[:-2]
-                                elif name.endswith('12'):
-                                    name=name[:-2]
-                                elif name.endswith('11'):
-                                    name=name[:-2]
-                                elif name.endswith('10'):
-                                    name=name[:-2]
-                                elif name.endswith('9'):
+                                elif name.endswith(tuple(sFix2)):
                                     name=name[:-1]
-                                elif name.endswith('8'):
-                                    name=name[:-1]
-                                elif name.endswith('7'):
-                                    name=name[:-1]
-                                elif name.endswith('6'):
-                                    name=name[:-1]
-                                elif name.endswith('5'):
-                                    name=name[:-1]
-                                elif name.endswith('4'):
-                                    name=name[:-1]
-                                elif name.endswith('3'):
-                                    name=name[:-1]
-                                elif name.endswith('2'):
-                                    name=name[:-1]
-                                elif name.endswith('1'):
-                                    name=name[:-1]
-                                elif name.endswith('9B'):
-                                    name=name[:-2]
-                                elif name.endswith('8B'):
-                                    name=name[:-2]
-                                elif name.endswith('7B'):
-                                    name=name[:-2]
-                                elif name.endswith('6B'):
-                                    name=name[:-2]
-                                elif name.endswith('5B'):
-                                    name=name[:-2]
-                                elif name.endswith('4B'):
-                                    name=name[:-2]
-                                elif name.endswith('3B'):
-                                    name=name[:-2]
-                                elif name.endswith('2B'):
-                                    name=name[:-2]
-                                elif name.endswith('1B'):
-                                    name=name[:-2]
-                                elif name.endswith('B'):
-                                    name=name[:-2]
-                                elif name.endswith('9C'):
-                                    name=name[:-2]
-                                elif name.endswith('8C'):
-                                    name=name[:-2]
-                                elif name.endswith('7C'):
-                                    name=name[:-2]
-                                elif name.endswith('6C'):
-                                    name=name[:-2]
-                                elif name.endswith('5C'):
-                                    name=name[:-2]
-                                elif name.endswith('4C'):
-                                    name=name[:-2]
-                                elif name.endswith('3C'):
-                                    name=name[:-2]
-                                elif name.endswith('2C'):
-                                    name=name[:-2]
-                                elif name.endswith('1C'):
-                                    name=name[:-2]
-                                elif name.endswith('C'):
-                                    name=name[:-2]
+                                if 'Special' in name:
+                                    name='More Offers'
                             x.append(name)
                         else:
                             pass
                     if goatt==0:
                         name=a
-                        if name.endswith('20'):
+                        if name.endswith(tuple(sFix1)):
                             name=name[:-2]
-                        elif name.endswith('19'):
-                            name=name[:-2]
-                        elif name.endswith('18'):
-                            name=name[:-2]
-                        elif name.endswith('17'):
-                            name=name[:-2]
-                        elif name.endswith('16'):
-                            name=name[:-2]
-                        elif name.endswith('15'):
-                            name=name[:-2]
-                        elif name.endswith('14'):
-                            name=name[:-2]
-                        elif name.endswith('13'):
-                            name=name[:-2]
-                        elif name.endswith('12'):
-                            name=name[:-2]
-                        elif name.endswith('11'):
-                            name=name[:-2]
-                        elif name.endswith('10'):
-                            name=name[:-2]
-                        elif name.endswith('9'):
+                        elif name.endswith(tuple(sFix2)):
                             name=name[:-1]
-                        elif name.endswith('8'):
-                            name=name[:-1]
-                        elif name.endswith('7'):
-                            name=name[:-1]
-                        elif name.endswith('6'):
-                            name=name[:-1]
-                        elif name.endswith('5'):
-                            name=name[:-1]
-                        elif name.endswith('4'):
-                            name=name[:-1]
-                        elif name.endswith('3'):
-                            name=name[:-1]
-                        elif name.endswith('2'):
-                            name=name[:-1]
-                        elif name.endswith('1'):
-                            name=name[:-1]
-                        elif name.endswith('9B'):
-                            name=name[:-2]
-                        elif name.endswith('8B'):
-                            name=name[:-2]
-                        elif name.endswith('7B'):
-                            name=name[:-2]
-                        elif name.endswith('6B'):
-                            name=name[:-2]
-                        elif name.endswith('5B'):
-                            name=name[:-2]
-                        elif name.endswith('4B'):
-                            name=name[:-2]
-                        elif name.endswith('3B'):
-                            name=name[:-2]
-                        elif name.endswith('2B'):
-                            name=name[:-2]
-                        elif name.endswith('1B'):
-                            name=name[:-2]
-                        elif name.endswith('B'):
-                            name=name[:-2]
-                        elif name.endswith('9C'):
-                            name=name[:-2]
-                        elif name.endswith('8C'):
-                            name=name[:-2]
-                        elif name.endswith('7C'):
-                            name=name[:-2]
-                        elif name.endswith('6C'):
-                            name=name[:-2]
-                        elif name.endswith('5C'):
-                            name=name[:-2]
-                        elif name.endswith('4C'):
-                            name=name[:-2]
-                        elif name.endswith('3C'):
-                            name=name[:-2]
-                        elif name.endswith('2C'):
-                            name=name[:-2]
-                        elif name.endswith('1C'):
-                            name=name[:-2]
-                        elif name.endswith('C'):
-                            name=name[:-2]
                         x.append(name)
                 x=sorted(x)
                 count=Counter(x)
