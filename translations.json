@@ -1,0 +1,63 @@
+{
+    "Special":{
+        "ar":"المزيد من العروض",
+        "de":"Mehr Angebote",
+        "en":"More Offers",
+        "es":"Más ofertas",
+        "es-419":"Más ofertas",
+        "fr":"Autres offres",
+        "it":"Altre offerte",
+        "ja":"その他のオファー",
+        "ko":"더 많은 상품",
+        "pl":"Więcej ofert",
+        "pt-BR":"Mais ofertas",
+        "ru":"Другие предложения",
+        "tr":"Daha Fazla Teklif"
+    },
+    "Daily":{
+        "ar":"يوميًا",
+        "de":"Täglich",
+        "en":"Daily",
+        "es":"Diario",
+        "es-419":"Todos los días",
+        "fr":"Quotidien",
+        "it":"Giornalieri",
+        "ja":"デイリー",
+        "ko":"일일",
+        "pl":"Oferty dnia",
+        "pt-BR":"Diário",
+        "ru":"Ежедневно",
+        "tr":"Günlük"        
+    },
+    "Featured":{
+        "ar":"مميز",
+        "de":"Vorgestellt",
+        "en":"Featured",
+        "es":"Destacado",
+        "es-419":"Destacado",
+        "fr":"À la Une",
+        "it":"In evidenza",
+        "ja":"おすすめ",
+        "ko":"추천",
+        "pl":"Wyróżnione",
+        "pt-BR":"Destaques",
+        "ru":"Рекомендации",
+        "tr":"Öne Çıkanlar"        
+    },
+    "NBA75":{
+        "ar":"NBA 75",
+        "de":"NBA 75",
+        "en":"NBA 75",
+        "es":"NBA 75",
+        "es-419":"NBA 75",
+        "fr":"NBA 75",
+        "it":"NBA 75",
+        "ja":"NBA 75",
+        "ko":"NBA 75",
+        "pl":"NBA 75",
+        "pt-BR":"NBA 75",
+        "ru":"NBA 75",
+        "tr":"NBA 75"
+
+    }
+}
