@@ -82,8 +82,8 @@ def main():
                         x.append(name)
                 x=sorted(x)
                 count=Counter(x)
-                txt = open(f"sections.txt","w+")
-                txt.write(f"{Heading}\n")
+                txt = open(f"sections.txt","wb")
+                txt.write(f"{Heading}\n".encode('utf-8'))
                 quant=0
                 for i in count:
                     quantity=count[i]
@@ -95,11 +95,11 @@ def main():
                             quantity=f" X{quantity}"
                         else:
                             quantity=f" (X{quantity})"
-                        txt.write(f"\n{point}{name}{quantity}")
+                        txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
                     else:
-                        txt.write(f"\n{point}{name}")
+                        txt.write(f"\n{point}{name}".encode('utf-8'))
                 
-                txt = open(f"sections.txt","r")
+                txt = open(f"sections.txt","r", encoding='utf8')
                 file_contents = txt.read()
                 print (file_contents)
                 api.update_status(f"{file_contents}")
