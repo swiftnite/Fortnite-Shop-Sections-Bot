@@ -3,7 +3,6 @@ from collections import Counter
 import json
 from time import sleep
 import tweepy
-import os, random
 from config import keys, customisation
 consumer_key = keys.consumer_key
 consumer_secret_key = keys.consumer_secret_key
@@ -11,10 +10,17 @@ access_token = keys.access_token
 access_token_secret = keys.access_token_secret
 if not all((consumer_key, consumer_secret_key, access_token,access_token_secret)):
     print('WARNING!!!\nYou have not entered your Twitter Api keys into the config.json file!\nThis bot will be unable to post unless you enter these keys.\n\n')
+
 Heading = customisation.Heading
-Brackets = customisation.Brackets
+Footer = customisation.Footer
 Language = customisation.Language
 point = customisation.point
+
+Brackets = customisation.Brackets
+showIfOne = customisation.showIfOne
+quantitySymbol = customisation.quantitySymbol
+beforeOrAfter = customisation.beforeOrAfter
+
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
@@ -27,7 +33,6 @@ def main():
     try:
         url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
         url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
-        
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
             x = []
@@ -35,10 +40,8 @@ def main():
             auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
             auth.set_access_token(access_token, access_token_secret)
             api = tweepy.API(auth)
-
             with open('Cache/cache1.json', 'r') as cache:
                 cache1 = json.load(cache)
-
             if sections1 != cache1:
                 for a in sections1:
 
@@ -53,7 +56,7 @@ def main():
                             except:
                                 name=a
                                 for o in translator:
-                                    if o in name:
+                                    if name.startswith(o):
                                         name=translator[o][Language]
                                         success=True
                                     else:
@@ -69,7 +72,7 @@ def main():
                     if goatt==0:
                         name=a
                         for o in translator:
-                            if o in name:
+                            if name.startswith(o):
                                 name=translator[o][Language]
                                 success=True
                             else:
@@ -89,16 +92,38 @@ def main():
                     quantity=count[i]
                     name=i
                     if quantity!=1:
-                        if Brackets == "True":
-                            quantity=f" (X{quantity})"
-                        elif Brackets == "False":
-                            quantity=f" X{quantity}"
+                        if beforeOrAfter=="after":
+                            if Brackets == False:
+                                quantity=f" {quantity}{quantitySymbol}"
+                            else:
+                                quantity=f" ({quantity}{quantitySymbol})"
+                            txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
                         else:
-                            quantity=f" (X{quantity})"
-                        txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                            if Brackets == False:
+                                quantity=f" {quantitySymbol}{quantity}"
+                            else:
+                                quantity=f" ({quantitySymbol}{quantity})"
+                            txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                        
                     else:
-                        txt.write(f"\n{point}{name}".encode('utf-8'))
-                
+                        if showIfOne==True:
+                            if beforeOrAfter=="after":
+                                if Brackets == False:
+                                    quantity=f" {quantity}{quantitySymbol}"
+                                else:
+                                    quantity=f" ({quantity}{quantitySymbol})"
+                                txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                            else:
+                                if Brackets == False:
+                                    quantity=f" {quantitySymbol}{quantity}"
+                                else:
+                                    quantity=f" ({quantitySymbol}{quantity})"
+                                txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                        else:
+                            txt.write(f"\n{point}{name}".encode('utf-8'))
+                if Footer!="":
+                    txt.write(f"\n\n{Footer}".encode('utf-8'))
+                txt.close()
                 txt = open(f"sections.txt","r", encoding='utf8')
                 file_contents = txt.read()
                 print (file_contents)
