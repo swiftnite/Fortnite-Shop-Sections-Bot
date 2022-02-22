@@ -23,7 +23,7 @@ class customisation:
     Brackets: bool = True #NOTE: THIS IS EITHER True or False! True means that the quantity will have brackets around it -> (X7) false means it won't -> X7
     showIfOne: bool = True #NOTE: THIS IS EITHER True or False! True means that the if the quantity of a section is one it will display 1 with your quantitySymbol. False means that the quantity will be hidden if 1!
     quantitySymbol: str = "x"  #NOTE: This is what will appear either before or after the quantity of that section. For example X7 where this is "X". Another example is 7 tabs where this is " tabs"
-    beforeOrAfter: str = "Before" #NOTE: THIS IS EITHER "Before" or "After"! Before means that the quantitySymbol will be before the quantity number of the sections
+    beforeOrAfter: str = "before" #NOTE: THIS IS EITHER "before" or "after"! Before means that the quantitySymbol will be before the quantity number of the sections
 '''
 If you have any issues please message me on discord or twitter and I will respond as quick as possible!!
 Twitter: @SwiftNite
