@@ -134,8 +134,8 @@ def main():
                     json.dump(sections1, file, indent=3)
         except:
             pass            
-    except:
-        print("An error occured while checking for item shop sections!")
+    except Exception as e:
+        print("An error occured while checking for item shop sections!\n\n{e}")
 
 if __name__ == "__main__":
     while True:
