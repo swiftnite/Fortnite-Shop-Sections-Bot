@@ -135,7 +135,7 @@ def main():
         except:
             pass            
     except Exception as e:
-        print("An error occured while checking for item shop sections!\n\n{e}")
+        print(f"An error occured while checking for item shop sections!\n\n{e}")
 
 if __name__ == "__main__":
     while True:
