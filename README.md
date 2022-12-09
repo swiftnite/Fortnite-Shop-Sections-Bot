@@ -3,7 +3,7 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 
 ## Example
 <p align="center">
-    <img src="https://i.imgur.com/s2RBavZ.jpg">
+    <img src="https://cdn.discordapp.com/attachments/802370450561826817/1050699109557874708/image.png">
 </p>
 
 ## Requirments

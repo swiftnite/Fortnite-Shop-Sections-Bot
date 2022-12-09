@@ -36,7 +36,7 @@ def main():
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
             x = []
-            txt = open(f"sections.txt","w+")
+            txt = ""
             auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
             auth.set_access_token(access_token, access_token_secret)
             api = tweepy.API(auth)
@@ -85,9 +85,7 @@ def main():
                         x.append(name)
                 x=sorted(x)
                 count=Counter(x)
-                txt = open(f"sections.txt","wb")
-                txt.write(f"{Heading}\n".encode('utf-8'))
-                quant=0
+                txt+=f"{Heading}\n"
                 for i in count:
                     quantity=count[i]
                     name=i
@@ -97,13 +95,13 @@ def main():
                                 quantity=f" {quantity}{quantitySymbol}"
                             else:
                                 quantity=f" ({quantity}{quantitySymbol})"
-                            txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                            txt+=f"\n{point}{name}{quantity}"
                         else:
                             if Brackets == False:
                                 quantity=f" {quantitySymbol}{quantity}"
                             else:
                                 quantity=f" ({quantitySymbol}{quantity})"
-                            txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                            txt+=f"\n{point}{name}{quantity}"
                         
                     else:
                         if showIfOne==True:
@@ -112,24 +110,21 @@ def main():
                                     quantity=f" {quantity}{quantitySymbol}"
                                 else:
                                     quantity=f" ({quantity}{quantitySymbol})"
-                                txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                                txt+=f"\n{point}{name}{quantity}"
                             else:
                                 if Brackets == False:
                                     quantity=f" {quantitySymbol}{quantity}"
                                 else:
                                     quantity=f" ({quantitySymbol}{quantity})"
-                                txt.write(f"\n{point}{name}{quantity}".encode('utf-8'))
+                                txt+=f"\n{point}{name}{quantity}"
                         else:
-                            txt.write(f"\n{point}{name}".encode('utf-8'))
+                            txt+=f"\n{point}{name}"
                 if Footer!="":
-                    txt.write(f"\n\n{Footer}".encode('utf-8'))
-                txt.close()
-                txt = open(f"sections.txt","r", encoding='utf8')
-                file_contents = txt.read()
-                print (file_contents)
-                api.update_status(f"{file_contents}")
+                    txt+=f"\n\n{Footer}"
+                txt.encode('utf-8')
+                print (txt)
+                api.update_status(txt)
                 print("Posted!")
-                txt.close()
                 with open('Cache/cache1.json', 'w') as file:
                     json.dump(sections1, file, indent=3)
         except:
@@ -141,4 +136,4 @@ if __name__ == "__main__":
     while True:
         print("Checking for section changes!")
         main()
-        sleep(20)
+        sleep(15)
