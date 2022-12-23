@@ -2,15 +2,13 @@
 The section below is your twitter develepor keys & tokens required for posting to your twitter!
 You must have a twitter dev account of which you can apply for at https://developer.twitter.com/ 
 You must create an app to acess your keys at https://developer.twitter.com/en/portal/projects-and-apps 
-Whatever you name your app is what will appear as the source of where your tweet was posted from eg. Twitter for iPhone
-Your apps permissions must have Read + Write or else it will not post!
+Your apps permissions must have Read + Write or else it will not post!!
 '''
 class keys:
     consumer_key = ""
     consumer_secret_key = ""
     access_token = ""
     access_token_secret = ""
-
 '''
 The below section is for the customisation of the tweet itself
 '''
