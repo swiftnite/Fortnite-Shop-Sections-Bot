@@ -198,7 +198,6 @@ def main():
                         count+=1
                     try:
                         sortList.sort(key=magicalSortingFunction)
-                        print(sortList)
                     except Exception as e:
                         print(e)
                     sort = []
