@@ -2,21 +2,21 @@ try:
     from requests import get
 except:
     print("The requests module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install requests")
-    sleep(3)
+    sleep(10)
     exit()
 
 try:
     import tweepy
 except:
     print("The tweepy module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install tweepy")
-    sleep(3)
+    sleep(10)
     exit()
 
 try:
     import emoji
 except:
     print("The emoji module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install emoji")
-    sleep(3)
+    sleep(10)
     exit()
 
 from collections import Counter
@@ -35,7 +35,7 @@ api = tweepy.API(auth)
 
 if not all((consumer_key, consumer_secret_key, access_token,access_token_secret)):
     print('WARNING!!!\nYou have not entered your Twitter Api keys into the config.py file!\nThis bot CANNOT run unless you enter these keys!!')
-    sleep(3)
+    sleep(10)
     exit()
 try:
     account = api.verify_credentials(skip_status=True,include_email=False)
@@ -75,7 +75,10 @@ Brackets = customisation.Brackets
 showIfOne = customisation.showIfOne
 quantitySymbol = customisation.quantitySymbol
 beforeOrAfter = customisation.beforeOrAfter
+sortMethod = customisation.sortMethod
 
+def magicalSortingFunction(section):
+    return section["length"], section["count"]
 
 with open('translations.json', 'r', encoding='utf8') as translator:
     translator = json.load(translator)
@@ -93,6 +96,7 @@ def main():
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
 
             x = []
+            toSort = []
 
             # Each tweet will be stored in this array. Usually just one tweet is needed
             # however if it goes over the character limit then a reply is made with the
@@ -107,13 +111,19 @@ def main():
                 for a in sections1:
                     goatt=0
                     for b in url2:
+                        error = False
                         name=a
                         sectionId=b['sectionId']
                         if name==sectionId:
                             goatt+=1
                             try:
-                                name=b['sectionDisplayName']
+                                if b['sectionDisplayName']:
+                                    name = b['sectionDisplayName']
+                                else:
+                                    error = True
                             except:
+                                error = True
+                            if error == True:
                                 name=a
                                 for o in translator:
                                     if name.startswith(o):
@@ -143,7 +153,6 @@ def main():
                             elif name.endswith(tuple(sFix2)):
                                 name=name[:-1]
                         x.append(name)
-                x=sorted(x)
                 count=Counter(x)
                 for i in count:
                     quantity=count[i]
@@ -154,35 +163,13 @@ def main():
                                 quantity=f" {quantity}{quantitySymbol}"
                             else:
                                 quantity=f" ({quantity}{quantitySymbol})"
-
-                            if Heading in txt[-1]:
-                                if len(txt[-1]) + len(f"\n{point}{name}{quantity}") + headingEmojis > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}{quantity}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}{quantity}"
-                            else:
-                                if len(txt[-1]) + len(f"\n{point}{name}{quantity}") > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}{quantity}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}{quantity}"
-
                             
                         else:
                             if Brackets == False:
                                 quantity=f" {quantitySymbol}{quantity}"
                             else:
                                 quantity=f" ({quantitySymbol}{quantity})"
-
-                            if Heading in txt[-1]:
-                                if len(txt[-1]) + len(f"\n{point}{name}{quantity}") + headingEmojis > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}{quantity}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}{quantity}"
-                            else:
-                                if len(txt[-1]) + len(f"\n{point}{name}{quantity}") > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}{quantity}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}{quantity}"
+                        toSort.append(f"{point}{name}{quantity}")
                         
                     else:
                         if showIfOne==True:
@@ -191,44 +178,46 @@ def main():
                                     quantity=f" {quantity}{quantitySymbol}"
                                 else:
                                     quantity=f" ({quantity}{quantitySymbol})"
-
-                                if Heading in txt[-1]:
-                                    if len(txt[-1]) + len(f"\n{point}{name}{quantity}") + headingEmojis > defaultCharLimit:
-                                        txt.append(f"\n{point}{name}{quantity}")
-                                    else:
-                                        txt[-1] += f"\n{point}{name}{quantity}"
-                                else:
-                                    if len(txt[-1]) + len(f"\n{point}{name}{quantity}") > defaultCharLimit:
-                                        txt.append(f"\n{point}{name}{quantity}")
-                                    else:
-                                        txt[-1] += f"\n{point}{name}{quantity}"
                             else:
                                 if Brackets == False:
                                     quantity=f" {quantitySymbol}{quantity}"
                                 else:
                                     quantity=f" ({quantitySymbol}{quantity})"
 
-                                if Heading in txt[-1]:
-                                    if len(txt[-1]) + len(f"\n{point}{name}{quantity}") + headingEmojis > defaultCharLimit:
-                                        txt.append(f"\n{point}{name}{quantity}")
-                                    else:
-                                        txt[-1] += f"\n{point}{name}{quantity}"
-                                else:
-                                    if len(txt[-1]) + len(f"\n{point}{name}{quantity}") > defaultCharLimit:
-                                        txt.append(f"\n{point}{name}{quantity}")
-                                    else:
-                                        txt[-1] += f"\n{point}{name}{quantity}"
+                            toSort.append(f"{point}{name}{quantity}")
                         else:
-                            if Heading in txt[-1]:
-                                if len(txt[-1]) + len(f"\n{point}{name}") + headingEmojis > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}"
-                            else:
-                                if len(txt[-1]) + len(f"\n{point}{name}") > defaultCharLimit:
-                                    txt.append(f"\n{point}{name}")
-                                else:
-                                    txt[-1] += f"\n{point}{name}"
+                            toSort.append(f"n{point}{name}")
+                if sortMethod == "alphabetical":
+                    sort = sorted(toSort)
+                else:
+                    sortList = []
+                    sort = ""
+                    count = 1
+                    for i in toSort:
+                        sortList.append({"name": i, "length": len(i), "count": count})
+                        count+=1
+                    try:
+                        sortList.sort(key=magicalSortingFunction)
+                        print(sortList)
+                    except Exception as e:
+                        print(e)
+                    sort = []
+                    for i in sortList:
+                        sort.append(i["name"])
+
+
+                for i in sort:
+                    if Heading in txt[-1]:
+                        if len(txt[-1]) + len(f"\n{i}") + headingEmojis > defaultCharLimit:
+                            txt.append(f"\n{i}")
+                        else:
+                            txt[-1] += f"\n{i}"
+                    else:
+                        if len(txt[-1]) + len(f"\n{i}") > defaultCharLimit:
+                            txt.append(f"\n{i}")
+                        else:
+                            txt[-1] += f"\n{i}"
+                
                 if Footer!="":
                     if len(txt[-1])+ len(f"\n\n{Footer}") + footerEmojis < defaultCharLimit:
                         txt[-1] += f"\n\n{Footer}"
