@@ -76,6 +76,7 @@ showIfOne = customisation.showIfOne
 quantitySymbol = customisation.quantitySymbol
 beforeOrAfter = customisation.beforeOrAfter
 sortMethod = customisation.sortMethod
+sectionProvider = customisation.sectionProvider
 
 def magicalSortingFunction(section):
     return section["length"], section["count"]
@@ -90,7 +91,13 @@ print(f"Welcome {user} to SwiftNite's shop sections bot!\nThe bot is now looking
 
 def main():
     try:
-        url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
+        if sectionProvider == "nitestats":
+            url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
+        elif sectionProvider == "fn-api":
+            url=get('https://fn-api.com/api/calendar').json()
+        else:
+            url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
+            
         url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
