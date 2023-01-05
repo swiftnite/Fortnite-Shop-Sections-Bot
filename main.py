@@ -18,6 +18,12 @@ except:
     print("The emoji module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install emoji")
     sleep(10)
     exit()
+try:
+    from dateutil.parser import parse
+except:
+    print("The python-dateutil module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install python-dateutil")
+    sleep(10)
+    exit()
 
 from collections import Counter
 import json
@@ -91,13 +97,17 @@ print(f"Welcome {user} to SwiftNite's shop sections bot!\nThe bot is now looking
 
 def main():
     try:
-        if sectionProvider == "nitestats":
-            url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-        elif sectionProvider == "fn-api":
-            url=get('https://fn-api.com/api/calendar').json()['data']
+        nitestats=get('https://api.nitestats.com/v1/epic/modes-smart').json()
+        fnapi=get('https://fn-api.com/api/calendar').json()['data']
+
+        time1 = parse(nitestats['currentTime'])
+        time2 = parse(fnapi['currentTime'])
+
+        if time1 < time2:
+            url = fnapi
         else:
-            url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-            
+            url = nitestats
+
         url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']

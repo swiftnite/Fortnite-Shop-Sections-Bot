@@ -23,7 +23,6 @@ class customisation:
     quantitySymbol: str = "x"  #NOTE: This is what will appear either before or after the quantity of that section. For example X7 where this is "X". Another example is 7 tabs where this is " tabs"
     beforeOrAfter: str = "before" #NOTE: THIS IS EITHER "before" or "after"! Before means that the quantitySymbol will be before the quantity number of the sections
     sortMethod: str = "length" #NOTE: THIS IS EITHER "alphabetical" or "length"! Alphabetical means sections are sorted in alphabetical order, length means sections are sorted from shortest to longest
-    sectionProvider: str = "nitestats" #NOTE THIS IS EITHER "nitestats" (https://nitestats.com/) or "fn-api" (https://fn-api.com/)! This will be the api that provides the shop sections in order for the bot to operate.
 '''
 If you have any issues please message me on discord or twitter and I will respond as quick as possible!!
 Twitter: @SwiftNite

@@ -12,6 +12,7 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 - Requests (Python module)
 - Tweepy (Python module)
 - Emoji (Python module)
+- Python-Dateutil (Python module)
 
 ## Getting Started
 - Install python if you haven't already. Be sure python is added to PATH when you select installation options!
@@ -24,18 +25,20 @@ Open command prompt and enter each line:
 pip install tweepy
 pip install requests
 pip install emoji
+pip install python-dateutil
 ~~~
 Alternatively: 
 ~~~
 pip3 install requests
 pip3 install tweepy
 pip3 install emoji
+pip3 install python-dateutil
 ~~~
 
 - Finally start the bot by opening run.bat!!
 
 ## Project Credits
-Sections provided by [Nite Stats](https://nitestats.com/)
+Sections provided by [NiteStats](https://nitestats.com/) & [FN-API](https://fn-api.com/)
 
 Bot Created by [Swift-Nite](https://twitter.com/SwiftNite)
 
