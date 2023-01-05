@@ -82,7 +82,6 @@ showIfOne = customisation.showIfOne
 quantitySymbol = customisation.quantitySymbol
 beforeOrAfter = customisation.beforeOrAfter
 sortMethod = customisation.sortMethod
-sectionProvider = customisation.sectionProvider
 
 def magicalSortingFunction(section):
     return section["length"], section["count"]
