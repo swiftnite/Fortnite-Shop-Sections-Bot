@@ -94,7 +94,7 @@ def main():
         if sectionProvider == "nitestats":
             url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
         elif sectionProvider == "fn-api":
-            url=get('https://fn-api.com/api/calendar').json()
+            url=get('https://fn-api.com/api/calendar').json()['data']
         else:
             url=get('https://api.nitestats.com/v1/epic/modes-smart').json()
             
