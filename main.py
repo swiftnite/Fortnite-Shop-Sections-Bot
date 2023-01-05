@@ -96,11 +96,17 @@ print(f"Welcome {user} to SwiftNite's shop sections bot!\nThe bot is now looking
 
 def main():
     try:
-        nitestats=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-        fnapi=get('https://fn-api.com/api/calendar').json()['data']
+        try:
+            nitestats=get('https://api.nitestats.com/v1/epic/modes-smart').json()
+            time1 = parse(nitestats['currentTime'])
+        except:
+            time1 = "1989-12-13T00:00:00.000Z"
 
-        time1 = parse(nitestats['currentTime'])
-        time2 = parse(fnapi['currentTime'])
+        try:
+            fnapi=get('https://fn-api.com/api/calendar').json()['data']
+            time2 = parse(fnapi['currentTime'])
+        except:
+            time2 = "1989-12-13T00:00:00.000Z"
 
         if time1 < time2:
             url = fnapi
