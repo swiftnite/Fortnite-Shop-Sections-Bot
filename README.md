@@ -3,21 +3,22 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 
 ## Example
 <p align="center">
-    <img src="https://cdn.discordapp.com/attachments/802370450561826817/1050699109557874708/image.png">
+    <img src="https://cdn.discordapp.com/attachments/802370450561826817/1060449873268314132/example.png">
 </p>
 
 ## Requirements
-- Python
-- Twitter Developer Account
-- Requests (Python module)
-- Tweepy (Python module)
-- Emoji (Python module)
-- Python-Dateutil (Python module)
+- Python must be installed and added to PATH
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/74127135/212615961-10c507f5-01de-483a-914b-3270109cdb2b.png">
+</p>
+
+ <sub><sup>Image via [medium.com](https://medium.com/@omoshalewa/why-you-should-add-python-to-path-and-how-58693c17c443) </sub></sup>
+ 
+- Twitter Developer Account ([Need help getting started?](https://user-images.githubusercontent.com/74127135/212613649-91012cd1-c02c-418a-a8e8-695ab4aeced0.mp4))
 
 ## Getting Started
-- Install python if you haven't already. Be sure python is added to PATH when you select installation options!
-- Download and extract the Bot.
-- Open the config.py file and fill in everything required (further instructions inside)
+- [Download](https://github.com/swiftnite/Fortnite-Shop-Sections-Bot/archive/refs/heads/main.zip) and extract the Bot.
+- Open the **config.py** file inside a text editor of your choice (Visual studio code is recommended) and fill in all required fields
 - Run **install.bat**! 
 - If the install does not work then:
 Open command prompt and enter each line:
@@ -29,17 +30,24 @@ pip install python-dateutil
 ~~~
 Alternatively: 
 ~~~
-pip3 install requests
 pip3 install tweepy
+pip3 install requests
 pip3 install emoji
 pip3 install python-dateutil
 ~~~
 
-- Finally start the bot by opening run.bat!!
+- Finally start the bot by opening **run.bat**!!
+
+## Support
+If you enjoy my shop sections bot then you can follow me on [Twitter](https://twitter.com/intent/follow?screen_name=SwiftNite)!
+
+If you would like to further support me and the shop sections bot then consider using my support-a-creator code **Swift-Nite** in the Fortnite item shop or for any other Epic Games Store games!
+
+I much appreciate all support!
 
 ## Project Credits
 Sections provided by [NiteStats](https://nitestats.com/) & [FN-API](https://fn-api.com/)
 
-Bot Created by [Swift-Nite](https://twitter.com/SwiftNite)
+Bot Created by [Swift-Nite](https://twitter.com/intent/follow?screen_name=SwiftNite)
 
-Assisted by [xdFNLeaks](https://twitter.com/xdFNLeaks)
+Assisted by [xdFNLeaks](https://twitter.com/intent/follow?screen_name=xdFNLeaks)

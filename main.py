@@ -92,7 +92,7 @@ with open('translations.json', 'r', encoding='utf8') as translator:
 sFix1=["20", "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "9B", "8B", "7B", "6B", "5B", "4B", "3B", "2B", "1B", "9C", "8C", "7C", "6C", "5C", "4C", "3C", "2C", "1C"]
 sFix2=["9", "8", "7", "6", "5", "4", "3", "2", "1", "B", "C"]
 
-print(f"Welcome {user} to SwiftNite's shop sections bot!\nThe bot is now looking for new shop sections")
+print(f"\nWelcome {user} to SwiftNite's shop sections bot!\n\nFeel free to follow me on twitter -> @SwiftNite\nUse code Swift-Nite in Fortnite and the Epic Games Store to support me and this shop sections bot!\n\n\nThe bot is now looking for new shop sections!\n")
 
 def main():
     try:
@@ -126,7 +126,7 @@ def main():
             txt = []
             txt.append(f"{Heading}\n")
 
-            with open('Cache/cache1.json', 'r') as cache:
+            with open('cache.json', 'r') as cache:
                 cache1 = json.load(cache)
 
             if sections1 != cache1:
@@ -218,10 +218,7 @@ def main():
                     for i in toSort:
                         sortList.append({"name": i, "length": len(i), "count": count})
                         count+=1
-                    try:
-                        sortList.sort(key=magicalSortingFunction)
-                    except Exception as e:
-                        print(e)
+                    sortList.sort(key=magicalSortingFunction)
                     sort = []
                     for i in sortList:
                         sort.append(i["name"])
@@ -259,15 +256,15 @@ def main():
                             hi = json.loads(hi)
                             id = hi['id_str']
                         except Exception as e:
-                            print(f"An error occured while replying with the extra sections!\n{e}")
+                            print(f"\nAn error occured while replying with the extra sections!\n\n{e}")
                     tweetCount+=1
-                print("Posted!")
-                with open('Cache/cache1.json', 'w') as file:
+                print("\nPosted!\n")
+                with open('cache.json', 'w') as file:
                     json.dump(sections1, file, indent=3)
         except:
             pass
     except Exception as e:
-        print(f"An error occured while checking for item shop sections!\n\n{e}")
+        print(f"\nAn error occured while checking for item shop sections!\n\n{e}")
 
 if __name__ == "__main__":
     while True:
