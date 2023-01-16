@@ -9,10 +9,9 @@ A Fortnite shop section bot that posts to twitter as soon as they update! With s
 ## Requirements
 - Python must be installed and added to PATH
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/74127135/212615961-10c507f5-01de-483a-914b-3270109cdb2b.png">
-</p>
-
- <sub><sup>Image via [medium.com](https://medium.com/@omoshalewa/why-you-should-add-python-to-path-and-how-58693c17c443) </sub></sup>
+    <img src="https://user-images.githubusercontent.com/74127135/212615961-10c507f5-01de-483a-914b-3270109cdb2b.png"><br>
+    <sub><sup>Image via <a href="https://medium.com/@omoshalewa/why-you-should-add-python-to-path-and-how-58693c17c443">medium.com</a></sub></sup>
+ </p>
  
 - Twitter Developer Account ([Need help getting started?](https://user-images.githubusercontent.com/74127135/212613649-91012cd1-c02c-418a-a8e8-695ab4aeced0.mp4))
 
