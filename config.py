@@ -34,6 +34,16 @@ class customisation:
     beforeOrAfter: str = "before" #NOTE: THIS IS EITHER "before" or "after"! Before means that the quantitySymbol will be before the quantity number of the sections
     sortMethod: str = "length" #NOTE: THIS IS EITHER "alphabetical" or "length"! Alphabetical means sections are sorted in alphabetical order, length means sections are sorted from shortest to longest
 '''
+Here you can change which api the bot uses!
+You can check 2 apis where the fastest one will be used.
+'''
+class api1:
+    api: str = "https://api.nitestats.com/v1/epic/modes-smart" # NiteStats URL
+
+class api2:
+    api: str = "https://fn-api.com/api/calendar" #FN-API URL
+    enabled: bool = False #NOTE: FN-API has been shut down temporarily! Do not enable unless you change the URL or FN-API comes back!!
+'''
 If you have any issues please message me on Discord or Twitter and I will respond as quickly as possible!!
 Twitter: @SwiftNite
 Discord: Swift-nite#9078

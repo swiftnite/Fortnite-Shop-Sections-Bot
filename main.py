@@ -28,7 +28,7 @@ except:
 from collections import Counter
 import json
 from time import sleep
-from config import keys, customisation
+from config import keys, customisation, api1, api2
 
 consumer_key = keys.consumer_key
 consumer_secret_key = keys.consumer_secret_key
@@ -97,21 +97,30 @@ print(f"\nWelcome {user} to SwiftNite's shop sections bot!\n\nFeel free to follo
 def main():
     try:
         try:
-            nitestats=get('https://api.nitestats.com/v1/epic/modes-smart').json()
-            time1 = parse(nitestats['currentTime'])
+            if api1.api == "https://fn-api.com/api/calendar":
+                apione = get(api1.api).json()['data']
+            else:
+                apione=get(api1.api).json()
+            time1 = parse(apione['currentTime'])
         except:
             time1 = parse("1989-12-13T00:00:00.000Z")
 
-        try:
-            fnapi=get('https://fn-api.com/api/calendar').json()['data']
-            time2 = parse(fnapi['currentTime'])
-        except:
-            time2 = parse("1989-12-13T00:00:00.000Z")
+        if api2.enabled==True:
+            try:
+                if api2.api == "https://fn-api.com/api/calendar":
+                    apitwo = get(api2.api).json()['data']
+                else:
+                    apitwo=get(api2.api).json()
+                time2 = parse(apitwo['currentTime'])
+            except:
+                time2 = parse("1989-12-13T00:00:00.000Z")
 
-        if time1 < time2:
-            url = fnapi
+            if time1 < time2:
+                url = apione
+            else:
+                url = apitwo
         else:
-            url = nitestats
+            url = apione
 
         url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
         try:
