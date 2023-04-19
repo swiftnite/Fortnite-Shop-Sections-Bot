@@ -1,3 +1,7 @@
+#####################
+debug = False
+####################
+
 try:
     from requests import get
 except:
@@ -43,6 +47,7 @@ if not all((consumer_key, consumer_secret_key, access_token,access_token_secret)
     print('WARNING!!!\nYou have not entered your Twitter Api keys into the config.py file!\nThis bot CANNOT run unless you enter these keys!!')
     sleep(10)
     exit()
+
 try:
     account = api.verify_credentials(skip_status=True,include_email=False)
     hi = json.dumps(account._json)
@@ -50,7 +55,7 @@ try:
     twitter_tag = hi['screen_name']
     user = hi['name']
 except Exception as e:
-    print(f'An error occurred verifying your api keys! Are they correct?\n{e}')
+    print(f'An error occurred verifying your api keys! Are they correct?\nActual error:\n{e}\n\n')
 
 Heading = customisation.Heading
 Footer = customisation.Footer
@@ -102,8 +107,11 @@ def main():
             else:
                 apione=get(api1.api).json()
             time1 = parse(apione['currentTime'])
-        except:
+        except Exception as e:
             time1 = parse("1989-12-13T00:00:00.000Z")
+
+            if debug==True:
+                print(f"Error (api 1):\n{e}")
 
         if api2.enabled==True:
             try:
@@ -112,8 +120,11 @@ def main():
                 else:
                     apitwo=get(api2.api).json()
                 time2 = parse(apitwo['currentTime'])
-            except:
+            except Exception as e:
                 time2 = parse("1989-12-13T00:00:00.000Z")
+
+                if debug==True:
+                    print(f"Error (api 2):\n{e}")
 
             if time1 < time2:
                 url = apione
@@ -265,13 +276,16 @@ def main():
                             hi = json.loads(hi)
                             id = hi['id_str']
                         except Exception as e:
-                            print(f"\nAn error occured while replying with the extra sections!\n\n{e}")
+                            print(f"\nAn error occured while replying with the extra sections!\n\nError:\n{e}\n\n")
                     tweetCount+=1
                 print("\nPosted!\n")
                 with open('cache.json', 'w') as file:
                     json.dump(sections1, file, indent=3)
-        except:
-            pass
+        except Exception as e:
+            if debug==True:
+                print(f"\nError:\n{e}\n")
+            else:
+                pass
     except Exception as e:
         print(f"\nAn error occured while checking for item shop sections!\n\n{e}")
 
