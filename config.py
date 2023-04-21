@@ -15,10 +15,12 @@ Navigate to keys and tokens again and generate Access token and secret, fill the
 Your app's permissions must have Read + Write or else it will not post!!
 '''
 class keys:
-    consumer_key = ""
-    consumer_secret_key = ""
-    access_token = ""
-    access_token_secret = ""
+    consumer_key: str = ""
+    consumer_secret_key: str = ""
+    access_token: str = ""
+    access_token_secret: str = ""
+
+    twitterBlue: bool = False #NOTE: THIS IS True OR False! IF YOU HAVE TWITTER BLUE SET THIS TO True!!!!
 '''
 The below section is for the customisation of the tweet itself
 '''
@@ -41,8 +43,7 @@ class api1:
     api: str = "https://api.nitestats.com/v1/epic/modes-smart" # NiteStats URL
 
 class api2:
-    api: str = "https://fn-api.com/api/calendar" #FN-API URL
-    enabled: bool = False #NOTE: FN-API has been shut down temporarily! Do not enable unless you change the URL or FN-API comes back!!
+    enabled: bool = True #NOTE: This will enable the use of the official Epic Games API!!
 '''
 If you have any issues please message me on Discord or Twitter and I will respond as quickly as possible!!
 Twitter: @SwiftNite
