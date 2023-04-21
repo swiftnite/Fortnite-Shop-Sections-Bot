@@ -1,6 +1,6 @@
 #####################
 debug = False
-twitter = True
+twitter = False
 ####################
 
 
@@ -164,6 +164,9 @@ def authCheck():
             except Exception as e:
                 print(f'AUTH GENERATION ERROR!!\n{e}')
                 generateAuth()
+                
+    except IndexError as e:
+        generateAuth()
     except Exception as e:
         print(f'AUTH GENERATION ERROR!!\n{e}')
 
