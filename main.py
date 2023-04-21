@@ -1,6 +1,6 @@
 #####################
 debug = False
-twitter = False
+twitter = True
 ####################
 
 
