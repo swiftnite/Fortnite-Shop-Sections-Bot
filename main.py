@@ -398,6 +398,6 @@ def main():
 if __name__ == "__main__":
     while True:
         if api2.enabled:
-                authCheck()
+            authCheck()
         main()
         sleep(15)
