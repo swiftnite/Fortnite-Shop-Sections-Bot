@@ -38,9 +38,9 @@ class customisation:
     beforeOrAfter: str = "before" #NOTE: THIS IS EITHER "before" or "after"! Before means that the quantitySymbol will be before the quantity number of the sections
     sortMethod: str = "length" #NOTE: THIS IS EITHER "alphabetical" or "length"! Alphabetical means sections are sorted in alphabetical order, length means sections are sorted from shortest to longest
 
-    # It is NOT recommended you attatch an image to the tweet however, if you REALLY want to... you can.
-    image: str = "image.png" #NOTE: This is the filename for the image you want attatched to the tweet (if imageEnabled is True). This is NOT recommended as it looks very bad when there are too many sections!!
-    imageEnabled: bool = False #NOTE: THIS IS EITHER True or False! True (NOT Recommended) means your image set above will be attatched to the tweet (if there are many tweets it will be on the last one only!), False (Recommended) means no image
+    # It is NOT recommended you attach an image to the tweet however, if you REALLY want to... you can.
+    image: str = "image.png" #NOTE: This is the filename for the image you want attached to the tweet (if imageEnabled is True). This is NOT recommended as it looks very bad when there are too many sections!!
+    imageEnabled: bool = False #NOTE: THIS IS EITHER True or False! True (NOT Recommended) means your image set above will be attached to the tweet (if there are many tweets it will be on the last one only!), False (Recommended) means no image
     imageFileType: str = "png" #NOTE: This is the media/mime type of the image. Examples: .bmp -> "bmp", .gif -> "gif", .jpeg/.jpg ->"jpeg", .png -> "png". See more here -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types (We are only interested in what is after image/)
 '''
 Here you can change which api the bot uses!
