@@ -57,16 +57,16 @@ from time import sleep
 from config import keys, customisation, api1, api2
 
 if twitter:
-    consumer_key = keys.consumer_key
-    consumer_secret_key = keys.consumer_secret_key
-    access_token = keys.access_token
-    access_token_secret = keys.access_token_secret
+    consumerKey = keys.consumerKey
+    consumerSecretKey = keys.consumerSecretKey
+    accessToken = keys.accessToken
+    accessTokenSecret = keys.accessTokenSecret
 
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(consumerKey, consumerSecretKey)
+    auth.set_access_token(accessToken, accessTokenSecret)
     api = tweepy.API(auth)
 
-    if not all((consumer_key, consumer_secret_key, access_token,access_token_secret)):
+    if not all((consumerKey, consumerSecretKey, accessToken,accessTokenSecret)):
         print('WARNING!!!\nYou have not entered your Twitter Api keys into the config.py file!\nThis bot CANNOT run unless you enter these keys!!')
         sleep(10)
         exit()
@@ -80,22 +80,22 @@ if twitter:
     except Exception as e:
         print(f'An error occurred verifying your api keys! Are they correct?\nActual error:\n{e}\n\n')
 
-Heading = customisation.Heading
-Footer = customisation.Footer
+heading = customisation.heading
+footer = customisation.footer
+language = customisation.language
 point = customisation.point
-Language = customisation.Language
 
 specialLangs = ['ja', 'zh-cn', 'zh-hant', 'ko']
 
 # As Chinese, Japanese and Korean glyphs count as 2 characters,
 # tweet character limit is only 140 for these languages
 if not keys.twitterBlue:
-    if Language.lower() in specialLangs:
+    if language.lower() in specialLangs:
         defaultCharLimit = 140
     else:
         defaultCharLimit = 280
 else:
-    if Language.lower() in specialLangs:
+    if language.lower() in specialLangs:
         defaultCharLimit = 5000
     else:
         defaultCharLimit = 10000
@@ -103,15 +103,15 @@ else:
 headingEmojis = 0
 footerEmojis = 0
 
-for c in Heading:
+for c in heading:
     if emoji.is_emoji(c):
         headingEmojis+=1
 
-for c in Footer:
+for c in footer:
     if emoji.is_emoji(c):
         footerEmojis+=1
 
-Brackets = customisation.Brackets
+brackets = customisation.brackets
 showIfOne = customisation.showIfOne
 quantitySymbol = customisation.quantitySymbol
 beforeOrAfter = customisation.beforeOrAfter
@@ -171,7 +171,6 @@ def authCheck():
         print(f'AUTH GENERATION ERROR!!\n{e}')
 
 def generateAuth():
-
     with open('auth.json', 'r') as autho:
         auth = json.load(autho)
 
@@ -238,9 +237,12 @@ def main():
         else:
             url = apione
 
-        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={Language}').json()['sectionList']['sections']
+        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={language}').json()['sectionList']['sections']
         try:
             sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
+
+            # Uncomment the below when testing (it is current sections not upcoming)
+            # sections1=url['channels']['client-events']['states'][0]['state']['sectionStoreEnds']
 
             x = []
             toSort = []
@@ -249,7 +251,7 @@ def main():
             # however if it goes over the character limit then a reply is made with the
             # extra sections
             txt = []
-            txt.append(f"{Heading}\n")
+            txt.append(f"{heading}\n")
 
             with open('cache.json', 'r') as cache:
                 cache1 = json.load(cache)
@@ -274,7 +276,7 @@ def main():
                                 name=a
                                 for o in translator:
                                     if name.startswith(o):
-                                        name=translator[o][Language]
+                                        name=translator[o][language]
                                         success=True
                                     else:
                                         success=False
@@ -290,7 +292,7 @@ def main():
                         name=a
                         for o in translator:
                             if name.startswith(o):
-                                name=translator[o][Language]
+                                name=translator[o][language]
                                 success=True
                             else:
                                 success=False
@@ -306,13 +308,13 @@ def main():
                     name=i
                     if quantity!=1:
                         if beforeOrAfter=="after":
-                            if Brackets == False:
+                            if brackets == False:
                                 quantity=f" {quantity}{quantitySymbol}"
                             else:
                                 quantity=f" ({quantity}{quantitySymbol})"
                             
                         else:
-                            if Brackets == False:
+                            if brackets == False:
                                 quantity=f" {quantitySymbol}{quantity}"
                             else:
                                 quantity=f" ({quantitySymbol}{quantity})"
@@ -321,12 +323,12 @@ def main():
                     else:
                         if showIfOne==True:
                             if beforeOrAfter=="after":
-                                if Brackets == False:
+                                if brackets == False:
                                     quantity=f" {quantity}{quantitySymbol}"
                                 else:
                                     quantity=f" ({quantity}{quantitySymbol})"
                             else:
-                                if Brackets == False:
+                                if brackets == False:
                                     quantity=f" {quantitySymbol}{quantity}"
                                 else:
                                     quantity=f" ({quantitySymbol}{quantity})"
@@ -350,7 +352,7 @@ def main():
 
 
                 for i in sort:
-                    if Heading in txt[-1]:
+                    if heading in txt[-1]:
                         if len(txt[-1]) + len(f"\n{i}") + headingEmojis > defaultCharLimit:
                             txt.append(f"\n{i}")
                         else:
@@ -361,22 +363,32 @@ def main():
                         else:
                             txt[-1] += f"\n{i}"
                 
-                if Footer!="":
-                    if len(txt[-1])+ len(f"\n\n{Footer}") + footerEmojis < defaultCharLimit:
-                        txt[-1] += f"\n\n{Footer}"
+                if footer!="":
+                    if len(txt[-1])+ len(f"\n\n{footer}") + footerEmojis < defaultCharLimit:
+                        txt[-1] += f"\n\n{footer}"
                 if twitter:
+                    if customisation.imageEnabled:
+                        media_list = []
+                        response = api.chunked_upload(filename=customisation.image, file_type="image/"+customisation.imageFileType)
+                        media_list.append(response.media_id_string)
                     tweetCount = 1
                     for i in txt:
                         i.encode('utf-8')
                         print(i)
                         if tweetCount==1:
-                            tweet = api.update_status(i)
+                            if (tweetCount==len(txt)) & (customisation.imageEnabled):
+                                tweet = api.update_status(status=i, media_ids=media_list)
+                            else:
+                                tweet = api.update_status(i)
                             hi = json.dumps(tweet._json)
                             hi = json.loads(hi)
                             id = hi['id_str']
                         else:
                             try:
-                                tweet = api.update_status(status=f"@{twitter_tag} {i}", in_reply_to_status_id=id)
+                                if (tweetCount==len(txt)) & (customisation.imageEnabled):
+                                    tweet = api.update_status(status=f"@{twitter_tag} {i}", in_reply_to_status_id=id, media_ids=media_list)
+                                else:
+                                    tweet = api.update_status(status=f"@{twitter_tag} {i}", in_reply_to_status_id=id)
                                 hi = json.dumps(tweet._json)
                                 hi = json.loads(hi)
                                 id = hi['id_str']

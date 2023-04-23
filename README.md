@@ -42,6 +42,12 @@ Alternatively:
 pip3 install -r requirements.txt
 ~~~
 
+## Assistance & Suggestions
+If you require assistance or have suggestions you can:
+- [Join the Discord support server](https://discord.gg/jHsAW2FKnj)
+- [Message me on Twitter](https://twitter.com/intent/follow?screen_name=SwiftNite)
+- [Create a GitHub discussion](https://github.com/swiftnite/Fortnite-Shop-Sections-Bot/discussions/new/choose)
+
 ## Support Project
 If you enjoy my shop sections bot then you can follow me on [Twitter](https://twitter.com/intent/follow?screen_name=SwiftNite)!
 
