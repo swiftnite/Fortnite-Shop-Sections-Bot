@@ -3,7 +3,6 @@ debug = False
 twitter = True
 ####################
 
-
 # Module imports
 # Includes extra error catching for a better user experience
 try:
@@ -62,8 +61,14 @@ if twitter:
     accessToken = keys.accessToken
     accessTokenSecret = keys.accessTokenSecret
 
+    client = tweepy.Client(consumer_key=consumerKey,
+                    consumer_secret=consumerSecretKey,
+                    access_token=accessToken,
+                    access_token_secret=accessTokenSecret)
+    
     auth = tweepy.OAuthHandler(consumerKey, consumerSecretKey)
     auth.set_access_token(accessToken, accessTokenSecret)
+
     api = tweepy.API(auth)
 
     if not all((consumerKey, consumerSecretKey, accessToken,accessTokenSecret)):
@@ -87,9 +92,12 @@ point = customisation.point
 
 specialLangs = ['ja', 'zh-cn', 'zh-hant', 'ko']
 
+twitterBlue: bool = False #NOTE: THIS IS True OR False! IF YOU HAVE TWITTER BLUE SET THIS TO True!!!!
+# You did not see this, it is not here! Or is it??
+
 # As Chinese, Japanese and Korean glyphs count as 2 characters,
 # tweet character limit is only 140 for these languages
-if not keys.twitterBlue:
+if not twitterBlue:
     if language.lower() in specialLangs:
         defaultCharLimit = 140
     else:
@@ -377,21 +385,22 @@ def main():
                         print(i)
                         if tweetCount==1:
                             if (tweetCount==len(txt)) & (customisation.imageEnabled):
-                                tweet = api.update_status(status=i, media_ids=media_list)
+                                tweet = client.create_tweet(text=i, media_ids=media_list)
                             else:
-                                tweet = api.update_status(i)
-                            hi = json.dumps(tweet._json)
+                                tweet = client.create_tweet(text=i)
+                            hi = json.dumps(tweet.data)
                             hi = json.loads(hi)
-                            id = hi['id_str']
+                            id = hi['id']
                         else:
                             try:
                                 if (tweetCount==len(txt)) & (customisation.imageEnabled):
-                                    tweet = api.update_status(status=f"@{twitter_tag} {i}", in_reply_to_status_id=id, media_ids=media_list)
+                                    client.create_tweet()
+                                    tweet = client.create_tweet(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id, media_ids=media_list)
                                 else:
-                                    tweet = api.update_status(status=f"@{twitter_tag} {i}", in_reply_to_status_id=id)
-                                hi = json.dumps(tweet._json)
+                                    tweet = api.update_status(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id)
+                                hi = json.dumps(tweet.data)
                                 hi = json.loads(hi)
-                                id = hi['id_str']
+                                id = hi['id']
                             except Exception as e:
                                 print(f"\nAn error occured while replying with the extra sections!\n\nError:\n{e}\n\n")
                         tweetCount+=1

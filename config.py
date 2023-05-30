@@ -3,11 +3,9 @@ The section below is your Twitter developer keys & tokens required for posting t
 
 You must have a Twitter dev account which you can sign up for at https://developer.twitter.com/
 Once signed up, apply for elevated access if you do not already have it (can be found under project one)
-If accepted, go to overview (under projects & apps) and create an app.
--> For v2 users this can be created when creating your project, v1 users can create a standalone app. (Either way works)
--> Do not worry about the initial keys it gives you
+If accepted, go to overview (under projects & apps) and create a project.
 
-Once you have created your app scroll to user authentication settings inside the app and click set up.
+Once you have created your app within the project scroll to user authentication settings inside the app and click set up.
 Inside you must select read and write permissions (permissions) and web app, automated app or bot (type).
 For the required callback/redirect URL and website URL, the URL can be anything (you can even just use your Twitter eg. https://twitter.com/swiftnite)
 
@@ -21,8 +19,6 @@ class keys:
     consumerSecretKey: str = ""
     accessToken: str = ""
     accessTokenSecret: str = ""
-
-    twitterBlue: bool = False #NOTE: THIS IS True OR False! IF YOU HAVE TWITTER BLUE SET THIS TO True!!!!
 '''
 The below section is for the customisation of the tweet itself
 '''
@@ -52,10 +48,12 @@ class api1:
     api: str = "https://api.nitestats.com/v1/epic/modes-smart" # NiteStats URL
 
 class api2:
-    enabled: bool = True #NOTE: THIS IS EITHER True or False! True will enable the use of the official Epic Games API, initial setup will be required if this is enabled!
+    enabled: bool = False #NOTE: THIS IS EITHER True or False! True will enable the use of the official Epic Games API, initial setup will be required if this is enabled!
 '''
 If you require assistance or have suggestions you can:
-- Join the Discord support server -> https://discord.gg/jHsAW2FKnj
-- Message me on Twitter -> https://twitter.com/intent/follow?screen_name=SwiftNite
-- Create a GitHub discussion -> https://github.com/swiftnite/Fortnite-Shop-Sections-Bot/discussions/new/choose
+
+1. Join the Discord support server -> https://discord.gg/jHsAW2FKnj
+2. Message me on Twitter -> https://twitter.com/intent/follow?screen_name=SwiftNite
+3. Create a GitHub discussion -> https://github.com/swiftnite/Fortnite-Shop-Sections-Bot/discussions/new/choose
+
 '''
