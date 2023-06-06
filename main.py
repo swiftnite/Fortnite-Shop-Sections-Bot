@@ -394,9 +394,9 @@ def main():
                         else:
                             try:
                                 if (tweetCount==len(txt)) & (customisation.imageEnabled):
-                                    tweet = client.create_tweet(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id, media_ids=media_list)
+                                    tweet = client.create_tweet(text=i, in_reply_to_tweet_id=id, media_ids=media_list)
                                 else:
-                                    tweet = client.create_tweet(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id)
+                                    tweet = client.create_tweet(text=i, in_reply_to_tweet_id=id)
                                 hi = json.dumps(tweet.data)
                                 hi = json.loads(hi)
                                 id = hi['id']
