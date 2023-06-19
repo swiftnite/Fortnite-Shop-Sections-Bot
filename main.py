@@ -1,24 +1,15 @@
-#####################
-debug = False
-twitter = True
-####################
+from time import sleep
 
 # Module imports
 # Includes extra error catching for a better user experience
+# (Used in classes but easier to check if they are installed here)
+
 try:
-    from requests import get
-    from requests import post
+    import requests
 except:
     print("The requests module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install requests")
     sleep(10)
     exit()
-if twitter:
-    try:
-        import tweepy
-    except:
-        print("The tweepy module is not installed!\nPlease run install.bat before running the bot\nAlternatively you can open command prompt and enter pip install tweepy")
-        sleep(10)
-        exit()
 try:
     import emoji
 except:
@@ -50,378 +41,44 @@ except:
     sleep(10)
     exit()
 
-from collections import Counter
-import json
-from time import sleep
-from config import keys, customisation, api1, api2
+from config.config import twitter, customisation, api1, api2
+from classes.twitter import twitterClass
+from classes.sections import sectionsClass
+from classes.auth import authClass
 
-if twitter:
-    consumerKey = keys.consumerKey
-    consumerSecretKey = keys.consumerSecretKey
-    accessToken = keys.accessToken
-    accessTokenSecret = keys.accessTokenSecret
+if (api1.enabled == False) & (api2.enabled == False):
+    print("Please enable at least one api!\nHow would the bot run without them??")
 
-    client = tweepy.Client(consumer_key=consumerKey,
-                    consumer_secret=consumerSecretKey,
-                    access_token=accessToken,
-                    access_token_secret=accessTokenSecret)
-    
-    auth = tweepy.OAuthHandler(consumerKey, consumerSecretKey)
-    auth.set_access_token(accessToken, accessTokenSecret)
+sectionsInit = sectionsClass(customisation, api1.api, api1.enabled, api2.enabled)
 
-    api = tweepy.API(auth)
-
-    if not all((consumerKey, consumerSecretKey, accessToken,accessTokenSecret)):
-        print('WARNING!!!\nYou have not entered your Twitter Api keys into the config.py file!\nThis bot CANNOT run unless you enter these keys!!')
-        sleep(10)
-        exit()
-
-    try:
-        account = api.verify_credentials(skip_status=True,include_email=False)
-        hi = json.dumps(account._json)
-        hi = json.loads(hi)
-        twitter_tag = hi['screen_name']
-        user = hi['name']
-    except Exception as e:
-        print(f'An error occurred verifying your api keys! Are they correct?\nActual error:\n{e}\n\n')
-
-heading = customisation.heading
-footer = customisation.footer
-language = customisation.language
-point = customisation.point
-
-specialLangs = ['ja', 'zh-cn', 'zh-hant', 'ko']
-
-twitterBlue: bool = False #NOTE: THIS IS True OR False! IF YOU HAVE TWITTER BLUE SET THIS TO True!!!!
-# You did not see this, it is not here! Or is it??
-
-# As Chinese, Japanese and Korean glyphs count as 2 characters,
-# tweet character limit is only 140 for these languages
-if not twitterBlue:
-    if language.lower() in specialLangs:
-        defaultCharLimit = 140
-    else:
-        defaultCharLimit = 280
+if api2.enabled:
+    authInit = authClass()
 else:
-    if language.lower() in specialLangs:
-        defaultCharLimit = 5000
-    else:
-        defaultCharLimit = 10000
+    authInit = None
 
-headingEmojis = 0
-footerEmojis = 0
-
-for c in heading:
-    if emoji.is_emoji(c):
-        headingEmojis+=1
-
-for c in footer:
-    if emoji.is_emoji(c):
-        footerEmojis+=1
-
-brackets = customisation.brackets
-showIfOne = customisation.showIfOne
-quantitySymbol = customisation.quantitySymbol
-beforeOrAfter = customisation.beforeOrAfter
-sortMethod = customisation.sortMethod
-
-def magicalSortingFunction(section):
-    return section["length"], section["count"]
-
-with open('translations.json', 'r', encoding='utf8') as translator:
-    translator = json.load(translator)
-
-sFix1=["20", "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "9B", "8B", "7B", "6B", "5B", "4B", "3B", "2B", "1B", "9C", "8C", "7C", "6C", "5C", "4C", "3C", "2C", "1C"]
-sFix2=["9", "8", "7", "6", "5", "4", "3", "2", "1", "B", "C"]
-
-if twitter:
+if twitter.twitter:
+    twitterInit = twitterClass(twitter.consumerKey, twitter.consumerSecretKey, twitter.accessToken, twitter.accessTokenSecret)
+    user = twitterInit.getUser()
     print(f"\nWelcome {user} to SwiftNite's shop sections bot!\n\nFeel free to follow me on twitter -> @SwiftNite\nUse code Swift-Nite in Fortnite and the Epic Games Store to support me and this shop sections bot!\n\n\nThe bot is now looking for new shop sections!\n")
 else:
-    print(f"\nWelcome to SwiftNite's shop sections bot!\n\nFeel free to follow me on twitter -> @SwiftNite\nUse code Swift-Nite in Fortnite and the Epic Games Store to support me and this shop sections bot!\n\n\nThe bot is now looking for new shop sections!\n")
-
-def authCheck():
-    try:
-        with open('auth.json', 'r') as autho:
-            authFile = json.load(autho)
-        expiry = authFile['expires_at']
-        expiry = expiry.split(".")[0]
-        expiry = expiry.split("T")
-        expiry = f"{expiry[0]} {expiry[1]}"
-        dt_tuple = tuple([int(x) for x in expiry[:10].split(
-            '-')])+tuple([int(x) for x in expiry[11:].split(':')])
-        my_date = datetime(*dt_tuple, tzinfo=pytz.utc)
-        local_tz = get_localzone() 
-        my_date = my_date.astimezone(local_tz)
-        now_utc = datetime.now(local_tz)
-        expires = my_date.replace(
-            minute=5*(my_date.minute // 5)).strftime('%Y-%m-%d %H:%M')
-        current = now_utc.strftime('%Y-%m-%d %H:%M')
-
-        if (current > expires) or (current == expires):
-            print(f"Generating new token -  {current}")
-            try:
-                auth = post('https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token', data=f"grant_type=device_auth&account_id={authFile['accountId']}&device_id={authFile['deviceId']}&secret={authFile['secret']}", headers={
-                                    "Content-Type": "application/x-www-form-urlencoded", "Authorization": "basic MzQ0NmNkNzI2OTRjNGE0NDg1ZDgxYjc3YWRiYjIxNDE6OTIwOWQ0YTVlMjVhNDU3ZmI5YjA3NDg5ZDMxM2I0MWE="})
-                bearer = auth.json()['access_token']
-                expiry = auth.json()['expires_at']
-                authFile['expires_at'] = expiry
-                authFile['access_token'] = bearer
-                with open('auth.json', 'w') as file:
-                    json.dump(authFile, file, indent=3)
-                print(f'Auth token updated - {current}')
-            except Exception as e:
-                print(f'AUTH GENERATION ERROR!!\n{e}')
-                generateAuth()
-                
-    except IndexError as e:
-        generateAuth()
-    except Exception as e:
-        print(f'AUTH GENERATION ERROR!!\n{e}')
-
-def generateAuth():
-    with open('auth.json', 'r') as autho:
-        auth = json.load(autho)
-
-    url = 'https://www.epicgames.com/id/api/redirect?clientId=3446cd72694c4a4485d81b77adbb2141&responseType=code'
-
-    print(f'Epic Games Auth Setup!')
-    print(f'1. Please login to Epic Games in your web browser (An alt account is recommended)')
-    print(f'2. Head to the following link:\n{url}')
-    print(f'3. Copy the authorizationCode value')
-
-    authorizationCode = input("authorizationCode: ")
-
-    # Step 1 (Initial auth)
-    headers = {"Content-Type": "application/x-www-form-urlencoded", "Authorization": "basic MzQ0NmNkNzI2OTRjNGE0NDg1ZDgxYjc3YWRiYjIxNDE6OTIwOWQ0YTVlMjVhNDU3ZmI5YjA3NDg5ZDMxM2I0MWE="}
-    stepone = post(url='https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token', data=f"grant_type=authorization_code&code={authorizationCode}", headers=headers).json()
-    print(stepone)
-    access_token = stepone['access_token']
-    account_id = stepone['account_id']
-
-    auth['access_token'] = stepone['access_token']
-    auth['expires_at'] = stepone['expires_at']
-
-    # Step 2 (Device id)
-    headers = {"Authorization": f"Bearer {access_token}"}
-    steptwo = post(url = f'https://account-public-service-prod.ol.epicgames.com/account/api/public/account/{account_id}/deviceAuth', headers=headers).json()
-
-    auth['deviceId'] = steptwo['deviceId']
-    auth['accountId'] = steptwo['accountId']
-    auth['secret'] = steptwo['secret']
-
-    with open('auth.json', 'w') as file:
-        json.dump(auth, file, indent=3)
+    print(f"\nWelcome to SwiftNite's shop sections bot!\n\nFeel free to follow me on twitter -> @SwiftNite\nUse code Swift-Nite in Fortnite and the Epic Games Store to support me and this shop sections bot! #EpicPartner\n\n\nThe bot is now looking for new shop sections!\n")
 
 def main():
-    try:
-        try:
-            if api1.api == "https://fn-api.com/api/calendar":
-                apione = get(api1.api).json()['data']
-            else:
-                apione=get(api1.api).json()
-            time1 = parse(apione['currentTime'])
-        except Exception as e:
-            time1 = parse("1989-12-13T00:00:00.000Z")
+    sectionsInit.pickApi(authInit)
+    sections = sectionsInit.sections() 
 
-            if debug==True:
-                print(f"Error (api 1):\n{e}")
+    if (sections != None) & (twitter.twitter):
+        print("Tweeting new shop sections!")
+        twitterInit.tweet(sections, customisation.imageEnabled, customisation.image, customisation.imageFileType)
 
-        if api2.enabled:
-            with open('auth.json', 'r') as authi:
-                auth = json.load(authi)
-
-            if not all((auth['deviceId'], auth['accountId'], auth['secret'])):
-                generateAuth()
-                with open('auth.json', 'r') as authi:
-                    auth = json.load(authi)
-
-            apitwo = get('https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/calendar/v1/timeline', headers={"Authorization": f"Bearer {auth['access_token'] }"}).json()
-            time2 = parse(apitwo['currentTime'])
-
-            if time1 < time2:
-                url = apione
-            else:
-                url = apitwo
-        else:
-            url = apione
-
-        url2=get(f'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game/shop-sections?lang={language}').json()['sectionList']['sections']
-        try:
-            sections1=url['channels']['client-events']['states'][1]['state']['sectionStoreEnds']
-
-            # Uncomment the below when testing (it is current sections not upcoming)
-            # sections1=url['channels']['client-events']['states'][0]['state']['sectionStoreEnds']
-
-            x = []
-            toSort = []
-
-            # Each tweet will be stored in this array. Usually just one tweet is needed
-            # however if it goes over the character limit then a reply is made with the
-            # extra sections
-            txt = []
-            txt.append(f"{heading}\n")
-
-            with open('cache.json', 'r') as cache:
-                cache1 = json.load(cache)
-
-            if sections1 != cache1:
-                for a in sections1:
-                    goatt=0
-                    for b in url2:
-                        error = False
-                        name=a
-                        sectionId=b['sectionId']
-                        if name==sectionId:
-                            goatt+=1
-                            try:
-                                if b['sectionDisplayName']:
-                                    name = b['sectionDisplayName']
-                                else:
-                                    error = True
-                            except:
-                                error = True
-                            if error == True:
-                                name=a
-                                for o in translator:
-                                    if name.startswith(o):
-                                        name=translator[o][language]
-                                        success=True
-                                    else:
-                                        success=False
-                                if success==False:
-                                    if name.endswith(tuple(sFix1)):
-                                        name=name[:-2]
-                                    elif name.endswith(tuple(sFix2)):
-                                        name=name[:-1]
-                            x.append(name)
-                        else:
-                            pass
-                    if goatt==0:
-                        name=a
-                        for o in translator:
-                            if name.startswith(o):
-                                name=translator[o][language]
-                                success=True
-                            else:
-                                success=False
-                        if success==False:
-                            if name.endswith(tuple(sFix1)):
-                                name=name[:-2]
-                            elif name.endswith(tuple(sFix2)):
-                                name=name[:-1]
-                        x.append(name)
-                count=Counter(x)
-                for i in count:
-                    quantity=count[i]
-                    name=i
-                    if quantity!=1:
-                        if beforeOrAfter=="after":
-                            if brackets == False:
-                                quantity=f" {quantity}{quantitySymbol}"
-                            else:
-                                quantity=f" ({quantity}{quantitySymbol})"
-                            
-                        else:
-                            if brackets == False:
-                                quantity=f" {quantitySymbol}{quantity}"
-                            else:
-                                quantity=f" ({quantitySymbol}{quantity})"
-                        toSort.append(f"{point}{name}{quantity}")
-                        
-                    else:
-                        if showIfOne==True:
-                            if beforeOrAfter=="after":
-                                if brackets == False:
-                                    quantity=f" {quantity}{quantitySymbol}"
-                                else:
-                                    quantity=f" ({quantity}{quantitySymbol})"
-                            else:
-                                if brackets == False:
-                                    quantity=f" {quantitySymbol}{quantity}"
-                                else:
-                                    quantity=f" ({quantitySymbol}{quantity})"
-
-                            toSort.append(f"{point}{name}{quantity}")
-                        else:
-                            toSort.append(f"n{point}{name}")
-                if sortMethod == "alphabetical":
-                    sort = sorted(toSort)
-                else:
-                    sortList = []
-                    sort = ""
-                    count = 1
-                    for i in toSort:
-                        sortList.append({"name": i, "length": len(i), "count": count})
-                        count+=1
-                    sortList.sort(key=magicalSortingFunction)
-                    sort = []
-                    for i in sortList:
-                        sort.append(i["name"])
-
-
-                for i in sort:
-                    if heading in txt[-1]:
-                        if len(txt[-1]) + len(f"\n{i}") + headingEmojis > defaultCharLimit:
-                            txt.append(f"\n{i}")
-                        else:
-                            txt[-1] += f"\n{i}"
-                    else:
-                        if len(txt[-1]) + len(f"\n{i}") > defaultCharLimit:
-                            txt.append(f"\n{i}")
-                        else:
-                            txt[-1] += f"\n{i}"
-                
-                if footer!="":
-                    if len(txt[-1])+ len(f"\n\n{footer}") + footerEmojis < defaultCharLimit:
-                        txt[-1] += f"\n\n{footer}"
-                if twitter:
-                    if customisation.imageEnabled:
-                        media_list = []
-                        response = api.chunked_upload(filename=customisation.image, file_type="image/"+customisation.imageFileType)
-                        media_list.append(response.media_id_string)
-                    tweetCount = 1
-                    for i in txt:
-                        i.encode('utf-8')
-                        print(i)
-                        if tweetCount==1:
-                            if (tweetCount==len(txt)) & (customisation.imageEnabled):
-                                tweet = client.create_tweet(text=i, media_ids=media_list)
-                            else:
-                                tweet = client.create_tweet(text=i)
-                            hi = json.dumps(tweet.data)
-                            hi = json.loads(hi)
-                            id = hi['id']
-                        else:
-                            try:
-                                if (tweetCount==len(txt)) & (customisation.imageEnabled):
-                                    client.create_tweet()
-                                    tweet = client.create_tweet(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id, media_ids=media_list)
-                                else:
-                                    tweet = api.update_status(text=f"@{twitter_tag} {i}", in_reply_to_tweet_id=id)
-                                hi = json.dumps(tweet.data)
-                                hi = json.loads(hi)
-                                id = hi['id']
-                            except Exception as e:
-                                print(f"\nAn error occured while replying with the extra sections!\n\nError:\n{e}\n\n")
-                        tweetCount+=1
-                    print("\nPosted!\n")
-                else:
-                    for i in txt:
-                        i.encode('utf-8')
-                        print(i)
-                with open('cache.json', 'w') as file:
-                    json.dump(sections1, file, indent=3)
-        except Exception as e:
-            if debug==True:
-                print(f"\nError:\n{e}\n")
-            else:
-                pass
-    except Exception as e:
-        print(f"\nAn error occured while checking for item shop sections!\n\n{e}")
+    elif  (sections != None) & (twitter.twitter == False):
+        for i in sections:
+            i.encode('utf-8')
+            print(i)
 
 if __name__ == "__main__":
     while True:
         if api2.enabled:
-            authCheck()
+            authInit.authCheck()
         main()
         sleep(15)
