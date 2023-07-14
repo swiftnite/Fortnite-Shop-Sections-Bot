@@ -35,7 +35,7 @@ class twitterClass:
     def tweet(self, sections, imageEnabled, imagePath, imageType):
         if imageEnabled:
             media_list = []
-            response = self.api.chunked_upload(filename=imagePath, file_type="image/"+imageType)
+            response = self.api.chunked_upload(filename=f"config/{imagePath}", file_type="image/"+imageType)
             media_list.append(response.media_id_string)
 
         tweetCount = 1
