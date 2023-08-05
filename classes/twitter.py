@@ -53,7 +53,6 @@ class twitterClass:
             else:
                 try:
                     if (tweetCount == len(sections)) & (imageEnabled):
-                        self.client.create_tweet(text = i, media_ids = media_list)
                         tweet = self.client.create_tweet(text = i, in_reply_to_tweet_id = id, media_ids = media_list)
                     else:
                         tweet = self.client.create_tweet(text = i, in_reply_to_tweet_id = id)
