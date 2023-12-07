@@ -1,4 +1,7 @@
 # Fortnite Shop Section Bot
+
+DUE TO CHANGES IN THE WAY EPIC GAMES DO THEIR SHOP SECTIONS, THIS BOT WILL NOT WORK ANYMORE!! 
+
 A Fortnite shop section bot that posts to twitter as soon as they update! With several customisable options!
 
 Sections data may come from [NiteStats](https://nitestats.com/) and Epic Games. Other API's can optionally also be used.
